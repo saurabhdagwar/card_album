@@ -1,9 +1,67 @@
-.album-main{
-    width: 100vw;
-    height: 100vh;
+.album-main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // justify-content: center;
+  @mixin center-text-align {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    // justify-content: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .header-display {
+    position: relative;
+    top: 0px;
+    width: 95%;
+    height: 100px;
+    background-color: #d9d9d9;
+    // align-self: flex-start;
+    // justify-self: flex-start;
+  }
+  .cards-display {
+    height: 90%;
+    width: 80%;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    overflow: auto;
 
+    .each-card {
+        @include center-text-align;
+      width: 200px;
+      height: 220px;
+      background-color: #9cd9f2;
+      margin: 20px;
+      position: relative;
+      border: none;
+      
+
+      .item-count {
+        @include center-text-align;
+        border-radius: 50px;
+        background-color: #7471e4;
+        color: #ffff;
+        width: 50px;
+        height: 50px;
+        font-size: 25px;
+        position: absolute;
+        right: -15px;
+        top: -15px;
+      }
+      .userId-disp {
+        @include center-text-align;
+        background-color: #ffff;
+        width: 100px;
+        height: 100px;
+        color: #000;
+        font-size: 30px;
+        border-radius: 50%;
+      }
+    }
+  }
 }
