@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./style.scss";
 const albumUrl = "https://jsonplaceholder.typicode.com/albums";
 
 const Album = () => {
   const [albums, setAlbums] = React.useState([]);
+  const [searchInput, setSearchInput] = useState("");
   useEffect(() => {
     getAlbumData();
   }, []);
@@ -35,20 +36,27 @@ const Album = () => {
   };
   return (
     <div className="album-main">
-      <header className="header-display"></header>
+      <header className="header-display">
+        <div className="logo-disp" />
+        <input
+          className="search-input"
+          role="text"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          placeholder="Search"
+        />
+      </header>
       <main className="cards-display">
-        {
-            albums.map((card, index) => {
-                const cardItemLength = card.length;
-                const getUserId = card[0].userId;
-                return (
-                    <button className="each-card" key={index}>
-                        <div className="item-count">{cardItemLength}</div>
-                        <div className="userId-disp">{getUserId}</div>
-                    </button>
-                )
-            })
-        }
+        {albums.map((card, index) => {
+          const cardItemLength = card.length;
+          const getUserId = card[0].userId;
+          return (
+            <button className="each-card" key={index}>
+              <div className="item-count">{cardItemLength}</div>
+              <div className="userId-disp">{getUserId}</div>
+            </button>
+          );
+        })}
       </main>
     </div>
   );
