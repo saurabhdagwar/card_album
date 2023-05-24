@@ -20,28 +20,28 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-   .logo-disp{
-    background-image: url("../assets/images/Logo.png");
-    background-size: cover;
-    width: 74px;
-    height: 58px;
-    margin: 20px;
-   }
-   .search-input{
-    background-color: #ffff;
-    color: #000;
-    width: 300px;
-    height: 30px;
-    border: none;
-    margin-right: 50px;
-    font-size: 20px;
-    padding: 10px;
-   }
+    .logo-disp {
+      background-image: url("../assets/images/Logo.png");
+      background-size: cover;
+      width: 74px;
+      height: 58px;
+      margin: 20px;
+    }
+    .search-input {
+      background-color: #ffff;
+      color: #000;
+      width: 300px;
+      height: 30px;
+      border: none;
+      margin-right: 50px;
+      font-size: 20px;
+      padding: 10px;
+    }
   }
   .cards-display {
     height: 90%;
     width: 80%;
-    border: 2px solid black;
+    // border: 2px solid black;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -50,14 +50,14 @@
     overflow: auto;
 
     .each-card {
-        @include center-text-align;
+      @include center-text-align;
       width: 200px;
       height: 220px;
       background-color: #9cd9f2;
       margin: 20px;
       position: relative;
       border: none;
-      
+      cursor: pointer;
 
       .item-count {
         @include center-text-align;
@@ -77,9 +77,31 @@
         width: 100px;
         height: 100px;
         color: #000;
-        font-size: 30px;
+        font-size: 40px;
         border-radius: 50%;
       }
+    }
+  }
+}
+.card-popup-container {
+  position: absolute;
+  width: 220px;
+  height: 298px;
+  overflow: auto;
+  z-index: 10;
+  background-color: white;
+  top: 0px;
+  left: -10px;
+  border: 2px solid;
+  border-radius: 30px;
+  .per-item-show {
+    border: 1px solid;
+    margin: 2px;
+    width: 90%;
+    height: auto;
+    font-size: 15px;
+    &.selected-item {
+      background-color: red;
     }
   }
 }
