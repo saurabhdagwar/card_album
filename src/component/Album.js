@@ -8,9 +8,24 @@ const albumUrl = "https://jsonplaceholder.typicode.com/albums";
 const Album = () => {
   const [albums, setAlbums] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [displaySerched, setDisplaySerched] = useState([]);
   useEffect(() => {
     getAlbumData();
   }, []);
+
+  useEffect(() => {
+    let copuAlbum = albums;
+    let searchedData = [];
+    copuAlbum.map((data) => {
+      data.items.map((dta) => {
+        if (dta.title.includes(searchInput)) {
+          searchedData.push(dta);
+        }
+      });
+    });
+    setDisplaySerched(searchedData);
+    // console.log("print input",searchedData)
+  }, [searchInput]);
 
   const getAlbumData = async () => {
     const albumData = await axios.get(albumUrl);
@@ -66,7 +81,7 @@ const Album = () => {
     event.stopPropagation();
     let copuAlbum = albums;
     let albm = copuAlbum.map((card) => {
-      let count = card.itemCount; 
+      let count = card.itemCount;
       let currentItem = card.items.map((perItem) => {
         if (perItem.id == id && !perItem.selected) {
           count = card.itemCount - 1;
@@ -96,32 +111,45 @@ const Album = () => {
           placeholder="Search"
         />
       </header>
-      <main className="cards-display">
-        {albums.map((card, index) => {
-          const cardItemLength = card.itemCount;
-          const getUserId = card.userId;
-          return (
-            <button
-              className={"each-card"}
-              key={index}
-              onClick={(e) => {
-                clickOnCard(e, getUserId);
-              }}
-            >
-              <div className="item-count">{cardItemLength}</div>
-              <div className="userId-disp">{getUserId}</div>
-              {card.selected ? (
-                <CardPopup
-                  items={card.items}
-                  userId={getUserId}
-                  itemClicked={itemClicked}
-                />
-              ) : (
-                <></>
-              )}
-            </button>
-          );
-        })}
+      <main>
+        {searchInput == "" ?
+          <div className="cards-display">
+            {albums.map((card, index) => {
+              const cardItemLength = card.itemCount;
+              const getUserId = card.userId;
+              return (
+                <button
+                  className={"each-card"}
+                  key={index}
+                  onClick={(e) => {
+                    clickOnCard(e, getUserId);
+                  }}
+                >
+                  <div className="item-count">{cardItemLength}</div>
+                  <div className="userId-disp">{getUserId}</div>
+                  {card.selected ? (
+                    <CardPopup
+                      items={card.items}
+                      userId={getUserId}
+                      itemClicked={itemClicked}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                </button>
+              );
+            })}
+          </div> : 
+          <div className="searched-field">
+                {displaySerched.map((data, index) => {
+                    return (
+                        <div className="each-item" key={index}>
+                            {data.title}
+                        </div>
+                    )
+                })}
+          </div>
+        }{" "}
       </main>
     </div>
   );
